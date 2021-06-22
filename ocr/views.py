@@ -1,8 +1,9 @@
-from django.shortcuts import render, redirect
 from django.conf import settings
-from .forms import *
+from django.shortcuts import render, redirect
 
+from .forms import *
 from .main import *
+
 
 # Create your views here.
 def base(request):
@@ -10,11 +11,18 @@ def base(request):
     if request.method == 'POST':
         form = ImagesForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
+            save_image = Images.objects.create(image=form.cleaned_data.get('image'))
+
+            # Get upload image name
             image = request.FILES['image']
+            # Get upload image path
             path = settings.MEDIA_ROOT + '\images\\' + image.name
-            print(path)
-            extract(path)
+            # Pass upload image path to ocr function
+            text = text + extract(path)
+            print('text: ' + text)
+            save_image.result = text
+            save_image.save()
+
             return redirect('home')
 
     form = ImagesForm()

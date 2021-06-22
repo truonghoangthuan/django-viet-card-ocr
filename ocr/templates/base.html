@@ -11,9 +11,10 @@
         <button type="submit">Submit</button>
     </form>
     {% for image in images %}
-        {{ image.name }}
-        <br>
         <img src="{{ image.image.url }}" width="10%">
+        <br>
+        {{ image.result }}
+        <br>
     {% endfor %}
 </body>
 </html>
