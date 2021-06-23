@@ -18,7 +18,7 @@ def base(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + '\images\\' + image.name
             # Pass upload image path to ocr function
-            text = text + extract(path)
+            text = text + str(extract(path))
             print('text: ' + text)
             save_image.result = text
             save_image.save()

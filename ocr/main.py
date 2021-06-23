@@ -44,10 +44,11 @@ def output_proc(results):  # xử lí kết quả đầu ra
     major = ' '
     faculty = ' '
     course = ' '
+    result = ''
     if classify(results) == 1:
         card = IdCard(id, name, birth, nationality, sex, hometown, address)
         card = output_proc_idCard(results)
-        card.print_idCard()
+        result = card.print_idCard()
     if classify(results) == 2:
         card = DrivingLicense(id, name, birth, nationality, address, classOfDL)
         card = output_proc_drivingLicense(results)  # phân loại
@@ -56,6 +57,7 @@ def output_proc(results):  # xử lí kết quả đầu ra
         card = StudentCard(name, id, major, faculty, course)
         card = output_proc_studentCard(results)
         card.print_StudentCard()
+    return result
 
 
 # if __name__ == '__main__':
@@ -69,7 +71,8 @@ def output_proc(results):  # xử lí kết quả đầu ra
 #             show_img(image_framed) #hiển thị ảnh
 def extract(img):
     results, image_framed = single_pic_proc(img)  # Hàm trả về là kết quả dạng array và img đã đóng khung
-    output_proc(results)
+    res = output_proc(results)
+    return res
 
 
 # extract('images/cmnd6.jpg')
