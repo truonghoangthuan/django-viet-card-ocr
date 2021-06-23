@@ -33,4 +33,12 @@ def base(request):
         'images': images,
     }
 
-    return render(request, 'base.html', context)
+    return render(request, 'CMND.html', context)
+
+
+def student_card_page(request):
+    return render(request, 'TSV.html')
+
+
+def driving_license_page(request):
+    return render(request, 'GPLX.html')
