@@ -17,7 +17,7 @@ class IdCard:
         #          '\nHometown: ' + self.hometown + \
         #          '\nAddress: ' + self.address
         dic = {
-            "CMND" : self.id,
+            "ID" : self.id,
             "Name" : self.name,
             "DOB" : self.birth,
             "Nationality" : self.nationality,
@@ -25,7 +25,8 @@ class IdCard:
             "Hometown" : self.hometown,
             "Address" : self.address
         }
-        result = ''
-        for key, value in dic.items():
-            result += str(key) + ' : ' + str(value) + "\n"
-        return result
+        # result = ''
+        # for key, value in dic.items():
+        #     result += str(key) + ' : ' + str(value) + "\n"
+        # return result
+        return dic
