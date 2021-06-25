@@ -16,24 +16,24 @@
         <h2 class="title">Thông tin trên Thẻ sinh viên</h2>
         <div class="info_detail">
             <div class="row id">
-                <label>Trường:</label>
-                <div class="vls"></div>
+                <label>Khoa:</label>
+                <div class="vls">{{ result.falculty }}</div>
             </div>
             <div class="row name">
                 <label>Mã số sinh viên:</label>
-                <div class="vls"></div>
+                <div class="vls">{{ result.student_card_number }}</div>
             </div>
             <div class="row date">
                 <label>Họ và tên:</label>
-                <div class="vls"></div>
+                <div class="vls">{{ result.name }}</div>
             </div>
             <div class="row root">
                 <label>Ngành:</label>
-                <div class="vls"></div>
+                <div class="vls">{{ result.major }}</div>
             </div>
             <div class="row address">
                 <label>Khóa học:</label>
-                <div class="vls"></div>
+                <div class="vls">{{ result.course }}</div>
             </div>
         </div>
     </div>

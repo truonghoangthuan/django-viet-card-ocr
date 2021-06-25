@@ -17,17 +17,17 @@ def base(request):
             # Get upload image name
             image = request.FILES["image"]
             # Get upload image path
-            path = settings.MEDIA_ROOT + "\images\\" + image.name
+            path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
             # Pass upload image path to ocr function
             res = extract(path)
             # Get result from ocr function and save to the fields of IdCard database.
-            save_result.idcard = str(res.get('ID'))
-            save_result.name = str(res.get('Name'))
-            save_result.dob = str(res.get('DOB'))
-            save_result.nationality = str(res.get('Nationality'))
-            save_result.sex = str(res.get('Sex'))
-            save_result.hometown = str(res.get('Hometown'))
-            save_result.address = str(res.get('Address'))
+            save_result.id_card_number = str(res.get("ID"))
+            save_result.name = str(res.get("Name"))
+            save_result.dob = str(res.get("DOB"))
+            save_result.nationality = str(res.get("Nationality"))
+            save_result.sex = str(res.get("Sex"))
+            save_result.hometown = str(res.get("Hometown"))
+            save_result.address = str(res.get("Address"))
 
             save_result.save()
 
@@ -46,35 +46,39 @@ def base(request):
 
 # View to handle student card upload images.
 def student_card_page(request):
-    # text = ""
-    # if request.method == "POST":
-    #     form = ImagesForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         save_image = Images.objects.create(image=form.cleaned_data.get("image"))
+    if request.method == "POST":
+        form = StudentCardForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Get uploading image to save to database.
+            save_result = Student_Card.objects.create(image=form.cleaned_data.get("image"))
 
-    #         # Get upload image name
-    #         image = request.FILES["image"]
-    #         # Get upload image path
-    #         path = settings.MEDIA_ROOT + "\images\\" + image.name
-    #         # Pass upload image path to ocr function
-    #         text = text + str(extract(path))
+            # Get upload image name
+            image = request.FILES["image"]
+            # Get upload image path
+            path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
+            # Pass upload image path to ocr function
+            res = extract(path)
+            print(res)
+            # Get result from ocr function and save to the fields of Student_Card database.
+            save_result.student_card_number = str(res.get("ID"))
+            save_result.name = str(res.get("Name"))
+            save_result.major = str(res.get("Major"))
+            save_result.falculty = str(res.get("Falculty"))
+            save_result.course = str(res.get("Course"))
 
-    #         print("text: \n" + text)
-    #         save_image.result = text
-    #         save_image.save()
+            save_result.save()
 
-    #         return redirect("home")
+            return redirect("tsv")
 
-    # form = ImagesForm()
-    # images = Images.objects.all()
+    form = StudentCardForm()
+    result = Student_Card.objects.last()
 
-    # context = {
-    #     "form": form,
-    #     "images": images,
-    # }
+    context = {
+        "form": form,
+        "result": result,
+    }
 
-    # return render(request, "TSV.html", context)
-    return render(request, "TSV.html")
+    return render(request, "TSV.html", context)
 
 
 # View to handle driving license upload images.

@@ -9,13 +9,6 @@ class IdCard:
         self.address = address
 
     def print_idCard(self):
-        # result = 'CMND: ' + self.id + \
-        #          '\nName: ' + self.name + \
-        #          '\nDOB ' + self.birth + \
-        #          '\nNationality: ' + self.nationality + \
-        #          '\nSex: ' + self.sex + \
-        #          '\nHometown: ' + self.hometown + \
-        #          '\nAddress: ' + self.address
         dic = {
             "ID" : self.id,
             "Name" : self.name,
@@ -25,8 +18,5 @@ class IdCard:
             "Hometown" : self.hometown,
             "Address" : self.address
         }
-        # result = ''
-        # for key, value in dic.items():
-        #     result += str(key) + ' : ' + str(value) + "\n"
-        # return result
+        
         return dic
