@@ -83,32 +83,37 @@ def student_card_page(request):
 
 # View to handle driving license upload images.
 def driving_license_page(request):
-    # text = ""
-    # if request.method == "POST":
-    #     form = ImagesForm(request.POST, request.FILES)
-    #     if form.is_valid():
-    #         save_image = Images.objects.create(image=form.cleaned_data.get("image"))
+    if request.method == "POST":
+        form = DrivingLicenseCardForm(request.POST, request.FILES)
+        if form.is_valid():
+            # Get uploading image to save to database.
+            save_result = Driving_License_Card.objects.create(image=form.cleaned_data.get("image"))
 
-    #         # Get upload image name
-    #         image = request.FILES["image"]
-    #         # Get upload image path
-    #         path = settings.MEDIA_ROOT + "\images\\" + image.name
-    #         # Pass upload image path to ocr function
-    #         text = text + str(extract(path))
+            # Get upload image name
+            image = request.FILES["image"]
+            # Get upload image path
+            path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
+            # Pass upload image path to ocr function
+            res = extract(path)
+            print(res)
+            # Get result from ocr function and save to the fields of Student_Card database.
+            save_result.driving_license_number = str(res.get("ID"))
+            save_result.name = str(res.get("Name"))
+            save_result.dob = str(res.get("DOB"))
+            save_result.nationality = str(res.get("Nationality"))
+            save_result.address = str(res.get("Address"))
+            save_result.card_class = str(res.get("Class"))
 
-    #         print("text: \n" + text)
-    #         save_image.result = text
-    #         save_image.save()
+            save_result.save()
 
-    #         return redirect("home")
+            return redirect("gplx")
 
-    # form = ImagesForm()
-    # images = Images.objects.all()
+    form = DrivingLicenseCardForm()
+    result = Driving_License_Card.objects.last()
 
-    # context = {
-    #     "form": form,
-    #     "images": images,
-    # }
+    context = {
+        "form": form,
+        "result": result,
+    }
 
-    # return render(request, "GPLX.html", context)
-    return render(request, "GPLX.html")
+    return render(request, "GPLX.html", context)

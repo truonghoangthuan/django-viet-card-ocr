@@ -8,9 +8,13 @@ class DrivingLicense:
         self.classOfDL = classOfDL
 
     def print_DrivingLicense(self):
-        print('Số: ' + self.id)
-        print('Họ tên: '+ self.name)
-        print('Ngày sinh: '+ self.birth)
-        print('Quốc tịch: '+ self.nationality)
-        print('Nơi cư trú: '+ self.address)
-        print('Hạng: ' + self.classOfDL)
+        dic = {
+            'ID': self.id,
+            'Name': self.name,
+            'DOB': self.birth,
+            'Nationality': self.nationality,
+            'Address': self.address,
+            'Class': self.classOfDL
+        }
+
+        return dic

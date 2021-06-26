@@ -28,3 +28,17 @@ class StudentCardForm(forms.ModelForm):
                 }
             )
         }
+
+
+# Form for driving lisense card.
+class DrivingLicenseCardForm(forms.ModelForm):
+    class Meta:
+        model = Driving_License_Card
+        fields = ["image"]
+        widgets = {
+            "image": forms.FileInput(
+                attrs={
+                    "class": "drop-zone__input",
+                }
+            )
+        }

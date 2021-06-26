@@ -13,7 +13,7 @@ class StudentCard:
             'Name': self.name,
             'Major': self.major,
             'Falculty': self.faculty,
-            'Coures': self.course
+            'Course': self.course
         }
 
         return dic
