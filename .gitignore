@@ -1,6 +1,4 @@
 venv/
 .idea/
 *.pth
-media/images/driving-license/*.jpg
-media/images/id-card/*.jpg
-media/images/studen-card/*.jpg
+media/
