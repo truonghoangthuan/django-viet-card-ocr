@@ -35,6 +35,7 @@ def base(request):
 
     form = IdCardForm()
     result = IDCard.objects.last()
+    IDCard.objects.create(id_card_number="", name="", dob="", nationality="", sex="", hometown="", address="")
 
     context = {
         "form": form,
@@ -72,6 +73,7 @@ def student_card_page(request):
 
     form = StudentCardForm()
     result = Student_Card.objects.last()
+    Student_Card.objects.create(student_card_number="", name="", major="", falculty="", course="")
 
     context = {
         "form": form,
@@ -110,6 +112,7 @@ def driving_license_page(request):
 
     form = DrivingLicenseCardForm()
     result = Driving_License_Card.objects.last()
+    Driving_License_Card.objects.create(driving_license_number="", name="", dob="", nationality="", address="", card_class="")
 
     context = {
         "form": form,
