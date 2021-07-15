@@ -2,3 +2,4 @@ venv/
 .idea/
 *.pth
 media/
+__pycache__/

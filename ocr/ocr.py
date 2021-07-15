@@ -9,7 +9,7 @@ from PIL import Image
 
 def img_to_text(list_img):
     results = []
-    config = Cfg.load_config_from_name('vgg_seq2seq')
+    config = Cfg.load_config_from_name('vgg_transformer')
     config['cnn']['pretrained']=True
     config['device'] = 'cpu'
     config['predictor']['beamsearch']=False
