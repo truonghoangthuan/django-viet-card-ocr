@@ -73,7 +73,7 @@ def student_card_page(request):
 
     form = StudentCardForm()
     result = Student_Card.objects.last()
-    # Student_Card.objects.create(student_card_number="", name="", major="", falculty="", course="")
+    Student_Card.objects.create(student_card_number="", name="", major="", falculty="", course="")
 
     context = {
         "form": form,
