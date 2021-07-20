@@ -48,7 +48,7 @@ def searchAddressOfDL(data, file):
     res = ''
     maxx = 0.8
     data = uni.unidecode(data.upper())
-    with open(file, 'r') as infile:
+    with open(file, 'r', encoding="utf8") as infile:
         for i in infile.readlines():
             if len(data.replace(' ', '')) <= len(i.strip().replace(' ', '')) + 4:
                 ratio = SequenceMatcher(a = uni.unidecode(i.upper()), b = data.upper()).ratio()
@@ -143,6 +143,9 @@ def output_proc_idCard(results):
 
         if extractDate(results[i]):
             expires = extractDate(results[i])
+
+    if searchLastName(name):
+        name = searchLastName(name)
 
     if searchDataFromFile(hometown, 'ocr/text/address.txt'):
         hometown = searchDataFromFile(hometown, 'ocr/text/address.txt')

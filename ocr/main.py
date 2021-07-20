@@ -53,7 +53,7 @@ def output_proc(results):  # xử lí kết quả đầu ra
         result = card.print_idCard()
 
     if classify(results) == 2:
-        card = DrivingLicense(id, name, birth, nationality, address, classOfDL)
+        card = DrivingLicense(id, name, birth, nationality, address, classOfDL, expires)
         card = output_proc_drivingLicense(results)  # phân loại
         result = card.print_DrivingLicense()
 

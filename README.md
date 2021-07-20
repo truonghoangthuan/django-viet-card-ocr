@@ -1,4 +1,4 @@
-# Django Vietnamese ID card OCR
+# Django Vietnamese personal card OCR
 ## Installation
 Creation of virtual environments is done by executing the command venv:
 ```bash
@@ -18,6 +18,15 @@ pip install -r requirements.txt
 Go to this [link](https://1drv.ms/u/s!Avsw2PR5gprjicdb8kstRQchzCnsiw?e=RH2KDb) to download data file for PyTorch and paste it to this following directory:
 ```directory
 .../django-ocr-app/ocr
+```
+
+In the project folder, create **media** folder and its subfolders as structure below:
+```
+├───media
+│   └───images
+│       ├───driving-license
+│       ├───id-card
+│       └───student-card
 ```
 
 ## Usage
