@@ -17,5 +17,4 @@ class StudentCard:
         }
 
         return dic
-
         

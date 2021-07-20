@@ -75,10 +75,7 @@ def char_rec(img, text_recs, adjust=False):
         
         list_img.append(part_img)
         
-        
-
     results = img_to_text(list_img)
-    
 
     return results
 #Hàm nhận dạng kí tự

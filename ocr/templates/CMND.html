@@ -1,19 +1,25 @@
 {% extends 'base.html' %}
 
-{% block content1 %}
-<div>Trích xuất thông tin từ chứng minh nhân dân</div>
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/public/css/style.css' %}">
 {% endblock %}
+
+
+{% block content1 %}
+<div>Trích xuất thông tin từ căn cước công dân</div>
+{% endblock content1 %}
 
 {% block content2 %}
 <div class="small_title">
     Trích xuất thông tin chi tiết từ ảnh giấy tờ cá nhân
 </div>
-{% endblock %}
+{% endblock content2 %}
 
 {% block content %}
 <div class="output_form">
     <div class="output_form_1">
-        <h2 class="title">Thông tin trên Chứng minh nhân dân</h2>
+        <h2 class="title">Thông tin trên căn cước công dân</h2>
         <div class="info_detail">
             <div class="row id">
                 <label>Số</label>
@@ -27,15 +33,23 @@
                 <label>Sinh ngày</label>
                 <div class="vls">{{ result.dob }}</div>
             </div>
-            <div class="row root">
-                <label>Nguyên quán</label>
+            <div class="row nationality">
+                <label>Quốc tịch</label>
                 <div class="vls">{{ result.nationality }}</div>
+            </div>
+            <div class="row address ">
+                <label>Nguyên quán</label>
+                <div class="vls">{{ result.hometown }}</div>
             </div>
             <div class="row address">
                 <label>Nơi ĐKHK thường trú</label>
                 <div class="vls">{{ result.address }}</div>
             </div>
+            <div class="row expires">
+                <label>Có giá trị đến</label>
+                <div class="vls">{{ result.expires }}</div>
+            </div>
         </div>
     </div>
 </div>
-{% endblock %}
+{% endblock content %}

@@ -138,15 +138,22 @@ body{
 .vls{
   background-color: #e5e5e5;
   height: 30px;
-  width: 250px;
+  width: 350px;
   position: absolute;
   right: 40px;
   border-style: solid;
   border-radius: 10px;
   border-color: white;
+  vertical-align: middle;
+  padding-top: 7px;
+  padding-left: 10px;
 }
 
 .address .vls{
+  height: 40px;
+}
+
+.faculty .vls, .major .vls {
   height: 40px;
 }
 

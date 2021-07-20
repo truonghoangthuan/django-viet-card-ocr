@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/public/css/style.css' %}">
+{% endblock %}
+
 {% block content1 %}
 <div>Trích xuất thông tin từ thẻ sinh viên</div>
 {% endblock %}
@@ -15,23 +20,23 @@
     <div class="output_form_1">
         <h2 class="title">Thông tin trên Thẻ sinh viên</h2>
         <div class="info_detail">
-            <div class="row id">
+            <div class="row faculty">
                 <label>Khoa:</label>
                 <div class="vls">{{ result.falculty }}</div>
             </div>
-            <div class="row name">
+            <div class="row id">
                 <label>Mã số sinh viên:</label>
                 <div class="vls">{{ result.student_card_number }}</div>
             </div>
-            <div class="row date">
+            <div class="row name">
                 <label>Họ và tên:</label>
                 <div class="vls">{{ result.name }}</div>
             </div>
-            <div class="row root">
+            <div class="row major">
                 <label>Ngành:</label>
                 <div class="vls">{{ result.major }}</div>
             </div>
-            <div class="row address">
+            <div class="row year">
                 <label>Khóa học:</label>
                 <div class="vls">{{ result.course }}</div>
             </div>

@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static '/public/css/style.css' %}">
+{% endblock %}
+
 {% block content1 %}
 <div>Trích xuất thông tin từ giấy phép lái xe</div>
 {% endblock %}
@@ -27,7 +32,7 @@
                 <label>Sinh ngày:</label>
                 <div class="vls">{{ result.dob }}</div>
             </div>
-            <div class="row root">
+            <div class="row nationality">
                 <label>Quốc tịch:</label>
                 <div class="vls">{{ result.nationality }}</div>
             </div>
@@ -38,6 +43,10 @@
             <div class="row type">
                 <label>Hạng:</label>
                 <div class="vls">{{ result.card_class }}</div>
+            </div>
+            <div class="row expires">
+                <label>Có giá trị đến:</label>
+                <div class="vls">{{ result.expires }}</div>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.shortcuts import render, redirect
+import os
 
 from .forms import *
 from .main import *
@@ -20,6 +21,7 @@ def base(request):
             path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
             # Pass upload image path to ocr function
             res = extract(path)
+            
             # Get result from ocr function and save to the fields of IdCard database.
             save_result.id_card_number = str(res.get("ID"))
             save_result.name = str(res.get("Name"))
@@ -28,6 +30,7 @@ def base(request):
             save_result.sex = str(res.get("Sex"))
             save_result.hometown = str(res.get("Hometown"))
             save_result.address = str(res.get("Address"))
+            save_result.expires = str(res.get("Expires"))
 
             save_result.save()
 
@@ -35,12 +38,16 @@ def base(request):
 
     form = IdCardForm()
     result = IDCard.objects.last()
-    IDCard.objects.create(id_card_number="", name="", dob="", nationality="", sex="", hometown="", address="")
-
+    IDCard.objects.all().delete()
+    
     context = {
         "form": form,
         "result": result,
     }
+
+    directory = settings.MEDIA_ROOT + "\images\id-card\\"
+    for f in os.listdir(directory):
+        os.remove(os.path.join(directory, f))
 
     return render(request, "CMND.html", context)
 
@@ -59,7 +66,7 @@ def student_card_page(request):
             path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
             # Pass upload image path to ocr function
             res = extract(path)
-            print(res)
+
             # Get result from ocr function and save to the fields of Student_Card database.
             save_result.student_card_number = str(res.get("ID"))
             save_result.name = str(res.get("Name"))
@@ -73,12 +80,15 @@ def student_card_page(request):
 
     form = StudentCardForm()
     result = Student_Card.objects.last()
-    Student_Card.objects.create(student_card_number="", name="", major="", falculty="", course="")
-
+    Student_Card.objects.all().delete()
     context = {
         "form": form,
         "result": result,
     }
+
+    directory = settings.MEDIA_ROOT + "\images\student-card\\"
+    for f in os.listdir(directory):
+        os.remove(os.path.join(directory, f))
 
     return render(request, "TSV.html", context)
 
@@ -97,7 +107,7 @@ def driving_license_page(request):
             path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
             # Pass upload image path to ocr function
             res = extract(path)
-            print(res)
+
             # Get result from ocr function and save to the fields of Student_Card database.
             save_result.driving_license_number = str(res.get("ID"))
             save_result.name = str(res.get("Name"))
@@ -105,6 +115,7 @@ def driving_license_page(request):
             save_result.nationality = str(res.get("Nationality"))
             save_result.address = str(res.get("Address"))
             save_result.card_class = str(res.get("Class"))
+            save_result.expires = str(res.get("Expires"))
 
             save_result.save()
 
@@ -112,11 +123,14 @@ def driving_license_page(request):
 
     form = DrivingLicenseCardForm()
     result = Driving_License_Card.objects.last()
-    Driving_License_Card.objects.create(driving_license_number="", name="", dob="", nationality="", address="", card_class="")
-
+    Driving_License_Card.objects.all().delete()
     context = {
         "form": form,
         "result": result,
     }
+
+    directory = settings.MEDIA_ROOT + "\images\driving-license\\"
+    for f in os.listdir(directory):
+        os.remove(os.path.join(directory, f))
 
     return render(request, "GPLX.html", context)
