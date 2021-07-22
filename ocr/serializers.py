@@ -1,11 +1,12 @@
 from rest_framework import serializers
 from .models import *
 
-class IDCardSerializer(serializers.ModelSerializer):
+
+# Serializer of GET method for ID card.
+class GetIDCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = IDCard
         fields = [
-            "image", 
             "id_card_number", 
             "name", "dob", 
             "nationality", 
@@ -14,3 +15,7 @@ class IDCardSerializer(serializers.ModelSerializer):
             "address", 
             "expires", 
         ]
+
+# Serializer of POST method for ID card.
+class PostIDCardSerializer(serializers.Serializer):
+    image = serializers.ImageField()

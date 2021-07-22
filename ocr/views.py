@@ -11,11 +11,46 @@ from .main import *
 
 
 # Create your views here.
-# View to load Django Rest Framework page.
+# View to handle api of ID card.
 class IDCardAPIView(APIView):
-    def get(self, request, *args, **kwargs):
+    # API for GET method.
+    def get(self):
         idcard = IDCard.objects.last()
-        getData = IDCardSerializer(idcard, many=False)
+        getData = GetIDCardSerializer(idcard, many=False)
+        return Response(getData.data)
+
+    # API for POST method.
+    def post(self, request):
+        postData = PostIDCardSerializer(request.data)
+
+        # Get the upload image.
+        image = postData.data["image"]
+        # Insert the upload image to database.
+        card = IDCard.objects.create(
+            image=image,
+        )
+
+        # Get upload image name.
+        image = request.FILES["image"]
+        # Get upload image path
+        path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
+        # Pass upload image path to ocr function
+        res = extract(path)
+        # Get result from ocr function and save to the fields of IdCard database.
+        card.id_card_number = str(res.get("ID"))
+        card.name = str(res.get("Name"))
+        card.dob = str(res.get("DOB"))
+        card.nationality = str(res.get("Nationality"))
+        card.sex = str(res.get("Sex"))
+        card.hometown = str(res.get("Hometown"))
+        card.address = str(res.get("Address"))
+        card.expires = str(res.get("Expires"))
+        card.save()
+
+        # Get the latest upload image in database.
+        idcard = IDCard.objects.last()
+        # Convert image information to JSON and return the JSON format.
+        getData = GetIDCardSerializer(idcard, many=False)
         return Response(getData.data)
 
 
@@ -43,7 +78,6 @@ def base(request):
             save_result.hometown = str(res.get("Hometown"))
             save_result.address = str(res.get("Address"))
             save_result.expires = str(res.get("Expires"))
-
             save_result.save()
 
             return redirect("home")
