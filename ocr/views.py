@@ -2,11 +2,23 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 import os
 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+from .serializers import *
 from .forms import *
 from .main import *
 
 
 # Create your views here.
+# View to load Django Rest Framework page.
+class IDCardAPIView(APIView):
+    def get(self, request, *args, **kwargs):
+        idcard = IDCard.objects.last()
+        getData = IDCardSerializer(idcard, many=False)
+        return Response(getData.data)
+
+
 # View to handle upload id card images.
 def base(request):
     if request.method == "POST":
@@ -21,7 +33,7 @@ def base(request):
             path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
             # Pass upload image path to ocr function
             res = extract(path)
-            
+
             # Get result from ocr function and save to the fields of IdCard database.
             save_result.id_card_number = str(res.get("ID"))
             save_result.name = str(res.get("Name"))
@@ -39,7 +51,7 @@ def base(request):
     form = IdCardForm()
     result = IDCard.objects.last()
     IDCard.objects.all().delete()
-    
+
     context = {
         "form": form,
         "result": result,
@@ -58,7 +70,9 @@ def student_card_page(request):
         form = StudentCardForm(request.POST, request.FILES)
         if form.is_valid():
             # Get uploading image to save to database.
-            save_result = Student_Card.objects.create(image=form.cleaned_data.get("image"))
+            save_result = Student_Card.objects.create(
+                image=form.cleaned_data.get("image")
+            )
 
             # Get upload image name
             image = request.FILES["image"]
@@ -99,7 +113,9 @@ def driving_license_page(request):
         form = DrivingLicenseCardForm(request.POST, request.FILES)
         if form.is_valid():
             # Get uploading image to save to database.
-            save_result = Driving_License_Card.objects.create(image=form.cleaned_data.get("image"))
+            save_result = Driving_License_Card.objects.create(
+                image=form.cleaned_data.get("image")
+            )
 
             # Get upload image name
             image = request.FILES["image"]
