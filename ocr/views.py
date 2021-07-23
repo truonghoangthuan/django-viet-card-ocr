@@ -81,7 +81,6 @@ def student_card_page(request):
             save_result.major = str(res.get("Major"))
             save_result.falculty = str(res.get("Falculty"))
             save_result.course = str(res.get("Course"))
-
             save_result.save()
 
             return redirect("tsv")
@@ -130,7 +129,6 @@ def driving_license_page(request):
             save_result.address = str(res.get("Address"))
             save_result.card_class = str(res.get("Class"))
             save_result.expires = str(res.get("Expires"))
-
             save_result.save()
 
             return redirect("gplx")
@@ -153,7 +151,8 @@ def driving_license_page(request):
 
     return render(request, "GPLX.html", context)
 
-# View to handle api of ID card.
+
+# View to handle api of IDCard.
 class IDCardAPIView(APIView):
     # API for GET method.
     def get(self):
@@ -163,13 +162,14 @@ class IDCardAPIView(APIView):
 
     # API for POST method.
     def post(self, request):
-        postData = PostIDCardSerializer(request.data)
+        postData = PostCardSerializer(data=request.data)
 
         # Get the upload image.
-        image = postData.data["image"]
+        if postData.is_valid():
+            postImage = request.data.get("image")
         # Insert the upload image to database.
         card = IDCard.objects.create(
-            image=image,
+            image=postImage,
         )
 
         # Get upload image name.
@@ -178,6 +178,7 @@ class IDCardAPIView(APIView):
         path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
         # Pass upload image path to ocr function
         res = extract(path)
+        
         # Get result from ocr function and save to the fields of IdCard database.
         card.id_card_number = str(res.get("ID"))
         card.name = str(res.get("Name"))
@@ -195,4 +196,109 @@ class IDCardAPIView(APIView):
         IDCard.objects.all().delete()
         # Convert image information to JSON and return the JSON format.
         getData = GetIDCardSerializer(idcard, many=False)
+
+        directory = settings.MEDIA_ROOT + "\images\id-card\\"
+        for f in os.listdir(directory):
+            os.remove(os.path.join(directory, f))
+
+        return Response(getData.data)
+
+
+# View to handle api of StudentCard.
+class StudentCardAPIView(APIView):
+    # API for GET method.
+    def get(self):
+        studentCard = Student_Card.objects.last()
+        getData = GetStudentCardSerializer(studentCard, many=False)
+        return Response(getData.data)
+
+    # API for POST method.
+    def post(self, request):
+        postData = PostCardSerializer(data=request.data)
+
+        # Get the upload image.
+        if postData.is_valid():
+            postImage = request.data.get("image")
+        # Insert the upload image to database.
+        card = Student_Card.objects.create(
+            image=postImage,
+        )
+
+        # Get upload image name.
+        image = request.FILES["image"]
+        # Get upload image path
+        path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
+        # Pass upload image path to ocr function
+        res = extract(path)
+        
+        # Get result from ocr function and save to the fields of Student_Card database.
+        card.student_card_number = str(res.get("ID"))
+        card.name = str(res.get("Name"))
+        card.major = str(res.get("Major"))
+        card.falculty = str(res.get("Falculty"))
+        card.course = str(res.get("Course"))
+        card.save()
+
+        # Get the latest upload image in database.
+        studentCard = Student_Card.objects.last()
+        # Delete all previous data to prevent from auto load last image information on start.
+        Student_Card.objects.all().delete()
+        # Convert image information to JSON and return the JSON format.
+        getData = GetStudentCardSerializer(studentCard, many=False)
+
+        directory = settings.MEDIA_ROOT + "\images\student-card\\"
+        for f in os.listdir(directory):
+            os.remove(os.path.join(directory, f))
+
+        return Response(getData.data)
+
+
+# View to handle api of DrivingLicense.
+class DrivingLicenseAPIView(APIView):
+    # API for GET method.
+    def get(self):
+        drivingLicense = Driving_License_Card.objects.last()
+        getData = GetDrivingLicenseSerializer(drivingLicense, many=False)
+        return Response(getData.data)
+
+    # API for POST method.
+    def post(self, request):
+        postData = PostCardSerializer(data=request.data)
+
+        # Get the upload image.
+        if postData.is_valid():
+            postImage = request.data.get("image")
+        # Insert the upload image to database.
+        card = Driving_License_Card.objects.create(
+            image=postImage,
+        )
+
+        # Get upload image name
+        image = request.FILES["image"]
+        # Get upload image path
+        path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
+        # Pass upload image path to ocr function
+        res = extract(path)
+        
+        # Get result from ocr function and save to the fields of Student_Card database.
+        card.driving_license_number = str(res.get("ID"))
+        card.name = str(res.get("Name"))
+        card.dob = str(res.get("DOB"))
+        card.nationality = str(res.get("Nationality"))
+        card.address = str(res.get("Address"))
+        card.card_class = str(res.get("Class"))
+        card.expires = str(res.get("Expires"))
+        card.save()
+
+        # Get the latest upload image in database.
+        drivingLicense = Driving_License_Card.objects.last()
+        # Delete all previous data to prevent from auto load last image information on start.
+        Driving_License_Card.objects.all().delete()
+        # Convert image information to JSON and return the JSON format.
+        getData = GetDrivingLicenseSerializer(drivingLicense, many=False)
+
+        directory = settings.MEDIA_ROOT + "\images\driving-license\\"
+        for f in os.listdir(directory):
+            os.remove(os.path.join(directory, f))
+
         return Response(getData.data)
