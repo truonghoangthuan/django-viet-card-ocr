@@ -11,49 +11,6 @@ from .main import *
 
 
 # Create your views here.
-# View to handle api of ID card.
-class IDCardAPIView(APIView):
-    # API for GET method.
-    def get(self):
-        idcard = IDCard.objects.last()
-        getData = GetIDCardSerializer(idcard, many=False)
-        return Response(getData.data)
-
-    # API for POST method.
-    def post(self, request):
-        postData = PostIDCardSerializer(request.data)
-
-        # Get the upload image.
-        image = postData.data["image"]
-        # Insert the upload image to database.
-        card = IDCard.objects.create(
-            image=image,
-        )
-
-        # Get upload image name.
-        image = request.FILES["image"]
-        # Get upload image path
-        path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
-        # Pass upload image path to ocr function
-        res = extract(path)
-        # Get result from ocr function and save to the fields of IdCard database.
-        card.id_card_number = str(res.get("ID"))
-        card.name = str(res.get("Name"))
-        card.dob = str(res.get("DOB"))
-        card.nationality = str(res.get("Nationality"))
-        card.sex = str(res.get("Sex"))
-        card.hometown = str(res.get("Hometown"))
-        card.address = str(res.get("Address"))
-        card.expires = str(res.get("Expires"))
-        card.save()
-
-        # Get the latest upload image in database.
-        idcard = IDCard.objects.last()
-        # Convert image information to JSON and return the JSON format.
-        getData = GetIDCardSerializer(idcard, many=False)
-        return Response(getData.data)
-
-
 # View to handle upload id card images.
 def base(request):
     if request.method == "POST":
@@ -82,8 +39,11 @@ def base(request):
 
             return redirect("home")
 
+    # Get the input form for IDCard.
     form = IdCardForm()
+    # Get the latest upload image in database.
     result = IDCard.objects.last()
+    # Delete all previous data to prevent from auto load last image information on start.
     IDCard.objects.all().delete()
 
     context = {
@@ -126,9 +86,13 @@ def student_card_page(request):
 
             return redirect("tsv")
 
+    # Get the input form for StudentCard.
     form = StudentCardForm()
+    # Get the latest upload image in database.
     result = Student_Card.objects.last()
+    # Delete all previous data to prevent from auto load last image information on start.
     Student_Card.objects.all().delete()
+
     context = {
         "form": form,
         "result": result,
@@ -171,9 +135,13 @@ def driving_license_page(request):
 
             return redirect("gplx")
 
+    # Get the input form for DrivingLicense.
     form = DrivingLicenseCardForm()
+    # Get the latest upload image in database.
     result = Driving_License_Card.objects.last()
+    # Delete all previous data to prevent from auto load last image information on start.
     Driving_License_Card.objects.all().delete()
+
     context = {
         "form": form,
         "result": result,
@@ -184,3 +152,47 @@ def driving_license_page(request):
         os.remove(os.path.join(directory, f))
 
     return render(request, "GPLX.html", context)
+
+# View to handle api of ID card.
+class IDCardAPIView(APIView):
+    # API for GET method.
+    def get(self):
+        idcard = IDCard.objects.last()
+        getData = GetIDCardSerializer(idcard, many=False)
+        return Response(getData.data)
+
+    # API for POST method.
+    def post(self, request):
+        postData = PostIDCardSerializer(request.data)
+
+        # Get the upload image.
+        image = postData.data["image"]
+        # Insert the upload image to database.
+        card = IDCard.objects.create(
+            image=image,
+        )
+
+        # Get upload image name.
+        image = request.FILES["image"]
+        # Get upload image path
+        path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
+        # Pass upload image path to ocr function
+        res = extract(path)
+        # Get result from ocr function and save to the fields of IdCard database.
+        card.id_card_number = str(res.get("ID"))
+        card.name = str(res.get("Name"))
+        card.dob = str(res.get("DOB"))
+        card.nationality = str(res.get("Nationality"))
+        card.sex = str(res.get("Sex"))
+        card.hometown = str(res.get("Hometown"))
+        card.address = str(res.get("Address"))
+        card.expires = str(res.get("Expires"))
+        card.save()
+
+        # Get the latest upload image in database.
+        idcard = IDCard.objects.last()
+        # Delete all previous data to prevent from auto load last image information on start.
+        IDCard.objects.all().delete()
+        # Convert image information to JSON and return the JSON format.
+        getData = GetIDCardSerializer(idcard, many=False)
+        return Response(getData.data)
