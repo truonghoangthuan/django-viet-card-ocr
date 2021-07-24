@@ -155,13 +155,13 @@ def driving_license_page(request):
 # View to handle api of IDCard.
 class IDCardAPIView(APIView):
     # API for GET method.
-    def get(self):
+    def get(self, request, *args, **kwargs):
         idcard = IDCard.objects.last()
         get_data = GetIDCardSerializer(idcard, many=False)
         return Response(get_data.data)
 
     # API for POST method.
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         post_data = PostCardSerializer(data=request.data)
 
         # Get the upload image.
