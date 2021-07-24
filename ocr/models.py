@@ -24,6 +24,7 @@ class Student_Card(models.Model):
     falculty = models.CharField(max_length=255, blank=True, null=True)
     course = models.CharField(max_length=255, blank=True, null=True)
 
+
 # Driving lisense card card database table.
 class Driving_License_Card(models.Model):
     image = models.ImageField(upload_to="images/driving-license/")
