@@ -7,8 +7,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static '/public/css/giaodiencss.css' %}">
-    <title>Document</title>
+    <!-- <link rel="stylesheet" type="text/css" href="{% static '/public/css/style.css' %}"> -->
+    {% block styles %}{% endblock %}
+    <title>Trích xuất thông tin thẻ</title>
 </head>
 
 <body>
@@ -35,17 +36,16 @@
                 </ul>
             </div>
         </div>
-        <button class="log_in">Đăng nhập</button>
     </div>
     <hr>
 
     <!-- Trang chủ > loại giấy -->
     <div class="path">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
+        <svg id="home" onclick="returnHomepage()" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 16 16">
             <path stroke="currentColor" d="M14.5 7.23v7.27h-4v-3h-5v3h-4V7.23L8 1.659l6.5 5.571z"></path>
         </svg>
-        <div class="root_path">Trang chủ ›</div>
-        <div class="goal_path">Giấy chứng minh nhân dân</div>
+        <div class="root_path" onclick="returnHomepage()">Trang chủ ›</div>
+        <div id="goal_path" onclick="refreshPage()"></div>
     </div>
 
     <!-- Tiêu đề giữa page -->
@@ -60,13 +60,13 @@
             </svg>
             {% block content1 %}
 
-            {% endblock %}
+            {% endblock content1 %}
         </div>
 
         <!-- Title nhỏ -->
         {% block content2 %}
 
-        {% endblock %}
+        {% endblock content2 %}
     </div>
 
     <!-- gôm 2 form lớn ở giữa màn hình -->
@@ -93,7 +93,7 @@
 
         {% block content %}
 
-        {% endblock %}
+        {% endblock content %}
 
         <!-- Set chức năng cho vùng input text -->
         <script>
@@ -170,10 +170,27 @@
             }
         </script>
 
-        <script src="{% static 'https://code.jquery.com/jquery-3.6.0.js' %}"
+        <script src="https://code.jquery.com/jquery-3.6.0.js"
             integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+        
     </div>
+    <script>
+        if (window.location.pathname == '/gplx/') {
+            document.getElementById("goal_path").innerHTML = "Giấy Phép Lái Xe";
+        } else if (window.location.pathname == '/tsv/') {
+            document.getElementById("goal_path").innerHTML = "Thẻ Sinh Viên";
+        } else {
+            document.getElementById("goal_path").innerHTML = "Căn Cước Công Dân";
+        }
 
+        function returnHomepage() {
+            window.location.href = "{% url 'home' %}";
+        }
+
+        function refreshPage() {
+            window.location.reload();
+        }
+    </script>
 </body>
 
 </html>

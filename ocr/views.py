@@ -4,6 +4,7 @@ from django.conf import settings
 from django.shortcuts import render, redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.parsers import MultiPartParser, FormParser
 
 from .forms import *
 from .main import *
@@ -154,6 +155,8 @@ def driving_license_page(request):
 
 # View to handle api of IDCard.
 class IDCardAPIView(APIView):
+    parser_classes = [MultiPartParser, FormParser]
+
     # API for GET method.
     def get(self, request, *args, **kwargs):
         idcard = IDCard.objects.last()
@@ -162,14 +165,16 @@ class IDCardAPIView(APIView):
 
     # API for POST method.
     def post(self, request, *args, **kwargs):
-        post_data = PostCardSerializer(data=request.data)
+        # post_data = PostCardSerializer(data=request.data)
+        post_data = request.data['image']
+        print("\n==============\n" + post_data + "\n==============\n")
 
         # Get the upload image.
-        if post_data.is_valid():
-            post_image = request.data.get("image")
+        # if post_data.is_valid():
+        #     post_image = request.data.get("image")
         # Insert the upload image to database.
         card = IDCard.objects.create(
-            image=post_image,
+            image=post_data,
         )
 
         # Get upload image name.
