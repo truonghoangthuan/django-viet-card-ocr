@@ -165,16 +165,15 @@ class IDCardAPIView(APIView):
 
     # API for POST method.
     def post(self, request, *args, **kwargs):
-        # post_data = PostCardSerializer(data=request.data)
-        post_data = request.data['image']
-        print("\n==============\n" + post_data + "\n==============\n")
+        post_data = PostCardSerializer(data=request.data)
+        print("\n==============\n" + str(post_data) + "\n==============\n")
 
         # Get the upload image.
-        # if post_data.is_valid():
-        #     post_image = request.data.get("image")
+        if post_data.is_valid():
+            post_image = request.data.get("image")
         # Insert the upload image to database.
         card = IDCard.objects.create(
-            image=post_data,
+            image=post_image,
         )
 
         # Get upload image name.
