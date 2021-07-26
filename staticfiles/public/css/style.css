@@ -103,6 +103,7 @@ body{
   display: flex;
   align-content: center;
   flex-direction: column;
+  height: 500px;
 }
 
 .output_form{
@@ -125,6 +126,13 @@ body{
   text-align: center;
   font-weight: 20;
   margin: 5px;
+}
+
+#error {
+  text-align: center;
+  font-weight: 20;
+  margin: 5px;
+  color: red;
 }
 
 .info_detail{
@@ -288,7 +296,7 @@ input[type="file"] {
 
 /* Drop image area */
 .drop-zone {
-height: 50vh;
+height: 55vh;
 width: 500px;
 padding: 5px;
 display: flex;

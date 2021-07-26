@@ -20,6 +20,7 @@
 <div class="output_form">
     <div class="output_form_1">
         <h2 class="title">Thông tin trên căn cước công dân</h2>
+        <h1 id="error"></h1>
         <div class="info_detail">
             <div class="row id">
                 <label>Số</label>
@@ -32,6 +33,10 @@
             <div class="row date">
                 <label>Sinh ngày</label>
                 <div class="vls">{{ result.dob }}</div>
+            </div>
+            <div class="row sex">
+                <label>Giới tính</label>
+                <div class="vls">{{ result.sex }}</div>
             </div>
             <div class="row nationality">
                 <label>Quốc tịch</label>

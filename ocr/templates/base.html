@@ -7,8 +7,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" type="text/css" href="{% static '/public/css/style.css' %}"> -->
-    {% block styles %}{% endblock %}
+
+    {% block styles %}
+    
+    {% endblock %}
+    
     <title>Trích xuất thông tin thẻ</title>
 </head>
 
@@ -94,6 +97,24 @@
         {% block content %}
 
         {% endblock content %}
+
+        <script>
+            function clearForm(data) {
+                for (var i = 0; i < data.length; i++){
+                    data[i].innerHTML = "";
+                }
+            }
+        
+            var data = document.getElementsByClassName("vls");
+            var error = document.getElementById("error");
+            for (var i = 0; i < data.length; i++){
+                if(data[i].innerHTML == "None") {
+                    error.innerHTML = "Sai loại thẻ / Hình chất lượng thấp";
+                    clearForm(data);
+                }
+            }
+        
+        </script>
 
         <!-- Set chức năng cho vùng input text -->
         <script>
