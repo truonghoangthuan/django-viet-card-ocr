@@ -2,3 +2,5 @@ venv/
 .idea/
 *.pth
 media/
+django_ocr_app/__pycache__/
+ocr/__pycache__/

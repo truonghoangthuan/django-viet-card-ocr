@@ -1,4 +1,4 @@
-# Django Vietnamese personal card OCR
+# Django VietCardOCR
 ## Installation
 Creation of virtual environments is done by executing the command venv:
 ```bash
