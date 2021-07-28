@@ -1,4 +1,5 @@
 import os
+import vietcardocr.extract as ext
 
 from django.conf import settings
 from django.shortcuts import render, redirect
@@ -7,7 +8,7 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from .forms import *
-from .main import *
+# from .main import *
 from .serializers import *
 
 
@@ -25,7 +26,8 @@ def base(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
             # Pass upload image path to ocr function
-            res = extract(path)
+            # res = extract(path)
+            res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of IdCard database.
             save_result.id_card_number = str(res.get("ID"))
@@ -74,7 +76,8 @@ def student_card_page(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
             # Pass upload image path to ocr function
-            res = extract(path)
+            # res = extract(path)
+            res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of Student_Card database.
             save_result.student_card_number = str(res.get("ID"))
@@ -120,7 +123,8 @@ def driving_license_page(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
             # Pass upload image path to ocr function
-            res = extract(path)
+            # res = extract(path)
+            res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of Student_Card database.
             save_result.driving_license_number = str(res.get("ID"))
@@ -181,7 +185,8 @@ class IDCardAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
         # Pass upload image path to ocr function
-        res = extract(path)
+        # res = extract(path)
+        res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of IdCard database.
         card.id_card_number = str(res.get("ID"))
@@ -233,7 +238,8 @@ class StudentCardAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
         # Pass upload image path to ocr function
-        res = extract(path)
+        # res = extract(path)
+        res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of Student_Card database.
         card.student_card_number = str(res.get("ID"))
@@ -282,7 +288,8 @@ class DrivingLicenseAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
         # Pass upload image path to ocr function
-        res = extract(path)
+        # res = extract(path)
+        res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of Student_Card database.
         card.driving_license_number = str(res.get("ID"))
