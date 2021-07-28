@@ -8,7 +8,6 @@ from rest_framework.views import APIView
 from rest_framework.parsers import MultiPartParser, FormParser
 
 from .forms import *
-# from .main import *
 from .serializers import *
 
 
@@ -26,7 +25,6 @@ def base(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
             # Pass upload image path to ocr function
-            # res = extract(path)
             res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of IdCard database.
@@ -76,7 +74,6 @@ def student_card_page(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
             # Pass upload image path to ocr function
-            # res = extract(path)
             res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of Student_Card database.
@@ -123,7 +120,6 @@ def driving_license_page(request):
             # Get upload image path
             path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
             # Pass upload image path to ocr function
-            # res = extract(path)
             res = ext.extract(path)
 
             # Get result from ocr function and save to the fields of Student_Card database.
@@ -185,7 +181,6 @@ class IDCardAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\id-card\\" + image.name
         # Pass upload image path to ocr function
-        # res = extract(path)
         res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of IdCard database.
@@ -238,7 +233,6 @@ class StudentCardAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\student-card\\" + image.name
         # Pass upload image path to ocr function
-        # res = extract(path)
         res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of Student_Card database.
@@ -288,7 +282,6 @@ class DrivingLicenseAPIView(APIView):
         # Get upload image path
         path = settings.MEDIA_ROOT + "\images\driving-license\\" + image.name
         # Pass upload image path to ocr function
-        # res = extract(path)
         res = ext.extract(path)
 
         # Get result from ocr function and save to the fields of Student_Card database.
