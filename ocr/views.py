@@ -155,8 +155,6 @@ def driving_license_page(request):
 
 # View to handle api of IDCard.
 class IDCardAPIView(APIView):
-    parser_classes = [MultiPartParser, FormParser]
-
     # API for GET method.
     def get(self, request, *args, **kwargs):
         idcard = IDCard.objects.last()
@@ -166,7 +164,6 @@ class IDCardAPIView(APIView):
     # API for POST method.
     def post(self, request, *args, **kwargs):
         post_data = PostCardSerializer(data=request.data)
-        print("\n==============\n" + str(post_data) + "\n==============\n")
 
         # Get the upload image.
         if post_data.is_valid():
@@ -211,13 +208,13 @@ class IDCardAPIView(APIView):
 # View to handle api of StudentCard.
 class StudentCardAPIView(APIView):
     # API for GET method.
-    def get(self):
+    def get(self, request, *args, **kwargs):
         student_card = Student_Card.objects.last()
         get_data = GetStudentCardSerializer(student_card, many=False)
         return Response(get_data.data)
 
     # API for POST method.
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         post_data = PostCardSerializer(data=request.data)
 
         # Get the upload image.
@@ -260,13 +257,13 @@ class StudentCardAPIView(APIView):
 # View to handle api of DrivingLicense.
 class DrivingLicenseAPIView(APIView):
     # API for GET method.
-    def get(self):
+    def get(self, request, *args, **kwargs):
         driving_license = Driving_License_Card.objects.last()
         get_data = GetDrivingLicenseSerializer(driving_license, many=False)
         return Response(get_data.data)
 
     # API for POST method.
-    def post(self, request):
+    def post(self, request, *args, **kwargs):
         post_data = PostCardSerializer(data=request.data)
 
         # Get the upload image.

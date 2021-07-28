@@ -4,3 +4,4 @@ venv/
 media/
 django_ocr_app/__pycache__/
 ocr/__pycache__/
+ocr/migrations/__pycache__/
