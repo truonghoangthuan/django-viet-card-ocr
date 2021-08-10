@@ -2,20 +2,25 @@ html{
   font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;
 }
 
+*{
+  padding: 0;
+  margin: 0;
+}
+
+body{
+  min-width: 500px;
+}
+
 .header{
   height: 30px;
   background-color: rgba(128, 128, 128, 0.486);
   padding: 15px;
+  margin: 10px;
   display: flex;
-}
-
-body{
-  min-width: 1150px;
 }
 
 .log_in{
   margin-left: auto;
-  
 }
 
 .header > select{
@@ -70,12 +75,12 @@ body{
 .large_title{
   display: flex;
   justify-content: center;
-  padding: 10px;
+  padding: 5px;
   height: 40px;
 }
 
 .large_title > div{
-  padding: 8px 5px 0 5px;
+  padding: 5px 5px 0 5px;
   font-size: 25px;
 }
 
@@ -84,33 +89,30 @@ body{
 }
 
 .small_title{
-  padding: 5px;
+  padding-bottom: 5px;
   text-align: center;
   font-size: 15px;
+  margin-bottom: 10px;
 }
 
-.input_output_form{
-  
+.input_output_form{ 
   display: flex;
-  padding: 10px;
-  /* background-color: red; */
   justify-content: space-around;
+  flex-direction: row;
 }
 
 .input_form{
   background-color: #3d99f5c7;
   padding: 10px;
   display: flex;
-  align-content: center;
   flex-direction: column;
-  height: 500px;
 }
 
 .output_form{
-  width: 700px;
   background-color: #3d99f5;
   padding: 10px;
   display: flex;
+  width: 700px;
 }
 
 .output_form_1{
@@ -119,7 +121,6 @@ body{
   border-style: solid;
   border-radius: 8px;
   border-color: #3d99f5;
-  padding: 5px;
 }
 
 .output_form_1 > .title{
@@ -128,19 +129,9 @@ body{
   margin: 5px;
 }
 
-#error {
-  text-align: center;
-  font-weight: 20;
-  margin: 5px;
-  color: red;
-}
-
 .info_detail{
   display: flex;
-  /* height: 45vh; */
-  width: auto;
   background-color: white;
-  padding: 5px 5px 5px 40px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   flex-direction: column;
 }
@@ -148,8 +139,8 @@ body{
 .row{
   display: flex;
   position: relative;
-  margin: 15px;
-  padding: 5px;
+  margin: 5px 0px 5px 0px;
+  padding: 15px;
   align-items: center;
 }
 
@@ -160,7 +151,7 @@ body{
 .vls{
   background-color: #e5e5e5;
   height: 30px;
-  width: 350px;
+  width: 50%;
   position: absolute;
   right: 40px;
   border-style: solid;
@@ -171,16 +162,8 @@ body{
   padding-left: 10px;
 }
 
-.address .vls{
-  height: 40px;
-}
-
-.faculty .vls, .major .vls {
-  height: 40px;
-}
-
 .menu{
-  background-color: rgba(135, 177, 241, 0.897);
+  background-color: #3d99f5c7;
   width: 178px;
   display: none;
   margin: 0;
@@ -289,14 +272,14 @@ input[type="file"] {
   color: #fff;
   font-weight: bold;
   padding: 15px 60px;
-  margin-top: 15px;
+  margin-top: 30px;
   cursor: pointer;
   z-index: 1;
 }
 
 /* Drop image area */
 .drop-zone {
-height: 55vh;
+height: 50vh;
 width: 500px;
 padding: 5px;
 display: flex;
@@ -352,4 +335,30 @@ text-align: center;
 
 .drop-zone__prompt > .or{
   margin-top: 10px;
+}
+
+@media(max-width:1200px){
+  .input_output_form{ 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .drop-zone {
+    width: 385px;
+  }
+
+  .output_form{
+    width: 400px;
+    margin-top: 50px;
+  }
+
+  .large_title{
+    padding: 2px;
+    height: 30px;
+  }
+  .large_title > div{
+    font-size: 20px;
+  }
+
 }
