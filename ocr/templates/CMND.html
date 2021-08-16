@@ -20,39 +20,38 @@
 <div class="output_form">
     <div class="output_form_1">
         <h2 class="title">Thông tin trên căn cước công dân</h2>
-        <h1 id="error"></h1>
         <div class="info_detail">
             <div class="row id">
                 <label>Số</label>
-                <div class="vls">{{ result.id_card_number }}</div>
+                <input class="vls" value="{{ result.id_card_number }}" readonly/>
             </div>
             <div class="row name">
                 <label>Họ và tên</label>
-                <div class="vls">{{ result.name }}</div>
+                <input class="vls" value="{{ result.name }}" readonly/>
             </div>
             <div class="row date">
                 <label>Sinh ngày</label>
-                <div class="vls">{{ result.dob }}</div>
+                <input class="vls" value="{{ result.dob }}" readonly/>
             </div>
             <div class="row sex">
                 <label>Giới tính</label>
-                <div class="vls">{{ result.sex }}</div>
+                <input class="vls" value="{{ result.sex }}" readonly/>
             </div>
             <div class="row nationality">
                 <label>Quốc tịch</label>
-                <div class="vls">{{ result.nationality }}</div>
+                <input class="vls" value="{{ result.nationality }}" readonly/>
             </div>
             <div class="row address ">
                 <label>Nguyên quán</label>
-                <div class="vls">{{ result.hometown }}</div>
+                <input class="vls" value="{{ result.hometown }}" readonly/>
             </div>
             <div class="row address">
-                <label>Nơi ĐKHK thường trú</label>
-                <div class="vls">{{ result.address }}</div>
+                <label>Nơi thường trú</label>
+                <input class="vls" value="{{ result.address }}" readonly/>
             </div>
             <div class="row expires">
                 <label>Có giá trị đến</label>
-                <div class="vls">{{ result.expires }}</div>
+                <input class="vls" value="{{ result.expires }}" readonly/>
             </div>
         </div>
     </div>

@@ -19,27 +19,26 @@
 <div class="output_form">
     <div class="output_form_1">
         <h2 class="title">Thông tin trên Thẻ sinh viên</h2>
-        <h1 id="error"></h1>
         <div class="info_detail">
             <div class="row faculty">
                 <label>Khoa:</label>
-                <div class="vls">{{ result.falculty }}</div>
+                <input class="vls" value="{{ result.falculty }}" readonly/>
             </div>
             <div class="row id">
                 <label>MSSV:</label>
-                <div class="vls">{{ result.student_card_number }}</div>
+                <input class="vls" value="{{ result.student_card_number }}" readonly/>
             </div>
             <div class="row name">
                 <label>Họ và tên:</label>
-                <div class="vls">{{ result.name }}</div>
+                <input class="vls" value="{{ result.name }}" readonly/>
             </div>
             <div class="row major">
                 <label>Ngành:</label>
-                <div class="vls">{{ result.major }}</div>
+                <input class="vls" value="{{ result.major }}" readonly/>
             </div>
             <div class="row year">
                 <label>Khóa học:</label>
-                <div class="vls">{{ result.course }}</div>
+                <input class="vls" value="{{ result.course }}" readonly/>
             </div>
         </div>
     </div>
